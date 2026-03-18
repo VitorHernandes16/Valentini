@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        titulo: ['Oswald', 'sans-serif'],
+                        texto: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Valentine Academia</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+</head>
+<body class="bg-black font-texto overflow-x-hidden">
+
+    <header class="w-full h-20 fixed backdrop-blur-md bg-black/70 z-50 top-0 left-0 border-b border-white/10 flex items-center">
+        <nav class="w-full flex items-center justify-between px-12">
+            
+            <div class="flex-1">
+                <h1 class="text-3xl font-black italic text-[#ff0000] font-titulo tracking-tighter">
+                    Valentini<span class="text-white not-italic font-bold text-xl ml-1">ACADEMIA</span>
+                </h1>
+            </div>
+
+            <ul class="hidden md:flex text-white/80 text-sm font-bold gap-10">
+                <li class="hover:text-[#ff0000] transition-colors"><a href="#planos">PLANOS</a></li>
+                <li class="hover:text-[#ff0000] transition-colors"><a href="#academia">ACADEMIA</a></li>
+                <li class="hover:text-[#ff0000] transition-colors"><a href="#galeria">GALERIA</a></li>
+                <li class="hover:text-[#ff0000] transition-colors"><a href="#depoimento">DEPOIMENTOS</a></li>
+            </ul>
+
+            <div class="flex-1 flex justify-end">
+                <a href="#matricula" class="bg-[#ff0000] px-8 py-2 text-white text-sm font-bold rounded-full hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
+                    Matricule-se
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="relative h-screen w-full flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
+                 class="w-full h-full object-cover grayscale" alt="Gym Background">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 px-12 max-w-4xl flex flex-col space-y-6 left-72">
+
+            <div class="inline-block w-fit border items-center border-[#ff0000]/40 bg-[#ff0000]/10 px-4 py-1 shadow-lg shadow-red-900/20 mb-6 rounded-xl">
+                <p class="text-[#ff0000] font-bold tracking-widest text-xs uppercase">O Novo Padrão de Bem-estar</p>
+            </div>
+
+            <h2 class="text-white text-8xl md:text-9xl font-titulo font-black uppercase leading-none italic">
+                Supere seus <br> <span class="text-[#ff0000]">Limites</span>
+            </h2>
+
+            <p class="text-white/60 text-xl font-medium">Mais que uma academia, um ponto de encontro para quem busca qualidade de vida. Treine com o apoio de quem conhece você pelo nome e quer ver a sua evolução.</p>
+
+            <div class="pt-4">
+                <a href="#começar" class="bg-[#ff0000] px-12 py-6 text-white text-sm font-bold rounded-lg hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
+                   COMEÇAR AGORA
+                </a>
+
+                <a href="#planos" class="px-12 py-6 text-white text-sm font-bold rounded-lg backdrop-blur transition-all shadow-lg shadow-red-600/20 ml-10">
+                   PLANOS
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-40 px-6 mx-auto bg-black flex" id="academia">
+        <div class="grid grid-cols-2 gap-20 items-center">
+            <div class="top-44">
+                <p class="text-[#ff0000] text-lg font-black block tracking-[0.4em] mb-4">SOBRE NÓS</p>
+                <h3 class="text-6xl font-black text-white italic tracking-tighter leading-none">Mais que uma academia, <br> o seu lugar para treinar, <br> relaxar e se sentir em casa</h3>
+
+                <p class="text-white/50 text-lg leading-relaxed mt-8 mb-8">A Valentini nasceu para ser a extensão da sua casa. Esqueça a correria: aqui você encontra um ambiente amigo, professores que te conhecem pelo nome e tudo o que precisa para cuidar da sua saúde no seu tempo.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+                <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 5.3 5.3"/><path d="M6.364 13.435a2 2 0 1 1-2.829-2.828l1.768-1.768a2 2 0 1 1-2.828-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.768a2 2 0 1 1 2.828 2.828z"/></svg>
+                    <div>
+                        <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Equipamentos</div>
+                        <div class="text-lg font-bold italic text-white">Modernos</div> </div>
+                </div>
+
+                <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <div>
+                        <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Horário</div>
+                        <div class="text-lg font-bold italic text-white">Seg a Sáb</div> </div>
+                </div>
+
+                <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <div>
+                        <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Apoio</div>
+                        <div class="text-lg font-bold italic text-white">Professores Amigos</div> </div>
+                </div>
+
+                <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div>
+                        <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Localização</div>
+                        <div class="text-lg font-bold italic text-white">Aqui no Bairro</div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="planos" class="py-20 bg-black/95">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div id="texto-planos" class="text-center mb-16">
+                <span class="text-[#ff0000] font-bold tracking-widest text-xs uppercase">Planos</span>
+                <h2 class="text-white text-4xl md:text-5xl font-titulo font-black uppercase italic mt-2">
+                    Escolha o ideal para <span class="text-[#ff0000]">você</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center relative">
+                
+                <div id="card-esquerda" class="p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 transition-all flex flex-col h-fit z-0">
+                    <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Essencial</h3>
+                    <div class="flex items-baseline gap-1 my-6">
+                        <span class="text-white/50 text-sm">R$</span>
+                        <span class="text-white text-5xl font-black font-titulo">119</span>
+                        <span class="text-white/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-white/70 text-sm flex-1">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Musculação Completa</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Horário Livre</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Treino Funcional</li>
+                    </ul>
+                    <a href="#" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all">Começar Agora</a>
+                </div>
+
+                <div id="card-principal" class="p-8 bg-black border-2 border-[#ff0000] rounded-3xl shadow-2xl shadow-[#ff0000]/20 flex flex-col relative scale-105 z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ff0000] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase">Mais Procurado</div>
+                    <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Valentine Plus</h3>
+                    <div class="flex items-baseline gap-1 my-6 text-[#ff0000]">
+                        <span class="text-white/50 text-sm">R$</span>
+                        <span class="text-white text-6xl font-black font-titulo">159</span>
+                        <span class="text-white/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-white/90 text-sm flex-1">
+                        <li class="flex items-center gap-2 font-bold"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Tudo do Essencial</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Avaliação Física Mensal</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Aulas de Boxe e Dança</li>
+                    </ul>
+                    <a href="#" class="w-full py-4 text-center bg-[#ff0000] text-white rounded-xl font-bold hover:bg-red-700 transition-all">Matricule-se Já</a>
+                </div>
+
+                <div id="card-direita" class="p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 transition-all flex flex-col h-fit z-0">
+                    <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Familiar</h3>
+                    <div class="flex items-baseline gap-1 my-6">
+                        <span class="text-white/50 text-sm">R$</span>
+                        <span class="text-white text-5xl font-black font-titulo">219</span>
+                        <span class="text-white/50 text-sm">/mês</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 text-white/70 text-sm flex-1">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Plano para 2 Pessoas</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Todos os Benefícios</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Consultoria de Treino</li>
+                    </ul>
+                    <a href="#" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all">Ver Detalhes</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+        <section class="py-32 bg-black w-full" id="galeria">
+
+       
+        <div class="px-6 mb-16 w-full text-center">
+            <p class="text-red-600 text-lg font-black tracking-[0.4em] mb-4">ATMOSFERA</p>
+            <h3 class="text-6xl font-black text-white italic tracking-tighter leading-none">
+            Ambiente relaxante
+            </h3>
+        </div>
+
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+
+           
+            <div class="overflow-hidden group relative h-[600px]">
+            <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&q=80&w=1200"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 rounded-lg group-hover:scale-110 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                <span class="text-white text-xs font-bold uppercase tracking-widest">Nossa Área</span>
+            </div>
+            </div>
+
+            <div class="overflow-hidden group relative h-[600px]">
+            <img src="https://images.unsplash.com/photo-1574673139081-34460f7e49f6?auto=format&fit=crop&q=80&w=1200"
+                class="w-full h-full object-cover grayscale rounded-xl group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+            <span class="text-white text-xs font-bold uppercase tracking-widest">Gallery</span>
+            </div>
+            </div>
+
+            <div class="overflow-hidden group relative h-[600px]">
+            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&q=80&w=1200"
+                class="w-full h-full object-cover grayscale rounded-xl group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+            <span class="text-white text-xs font-bold uppercase tracking-widest">Funcional</span>
+            </div>
+            </div>
+
+            <div class="overflow-hidden group relative h-[600px]">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=1200"
+                class="w-full h-full object-cover grayscale rounded-lg group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+            <span class="text-white text-xs font-bold uppercase tracking-widest">Bem-estar</span>
+            </div>
+            </div>
+
+        </div>
+        </section>
+
+        <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#planos",
+            start: "top 85%",
+            end: "bottom 95%",
+            scrub: true,
+            markers: false
+        }
+        });
+
+        tl.fromTo("#texto-planos",
+        {
+            y: 40,
+            opacity: 0,
+            scale: 0.9,
+            filter: "blur(6px)"
+        },
+        {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            ease: "power2.out"
+        },
+        )
+        .fromTo("#card-direita",
+        {
+            xPercent: -120,
+            opacity: 0,
+            scale: 0.85,
+            filter: "blur(6px)"
+        },
+        {
+            xPercent: 0,
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            ease: "power3.out"
+        }
+        )
+        .fromTo("#card-esquerda",
+        {
+            xPercent: 120,
+            opacity: 0,
+            scale: 0.85,
+            filter: "blur(6px)"
+        },
+        {
+            xPercent: 0,
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            ease: "power3.out"
+        },
+        "<0.1"
+        );
+        </script>
+    
+</body>
+</html>
