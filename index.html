@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,293 +19,540 @@
             }
         }
     </script>
-    <title>Valentine Academia</title>
+    <title>Valentini Academia</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* ─── SCROLL SUAVE ─── */
+        html { scroll-behavior: smooth; }
+
+        /* ─── SCROLLBAR PERSONALIZADA ─── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #ff0000; border-radius: 2px; }
+
+        /* ─── CURSOR CUSTOMIZADO ─── */
+        body { cursor: none; }
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+        .cursor-ring {
+            width: 36px; height: 36px;
+            border: 1.5px solid rgba(255,0,0,0.5);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, border-color 0.3s;
+        }
+        body:has(a:hover) .cursor-dot, body:has(button:hover) .cursor-dot { width: 12px; height: 12px; }
+        body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width: 56px; height: 56px; border-color: rgba(255,0,0,0.8); }
+
+        /* ─── ANIMAÇÕES REVEAL ─── */
+        .reveal { opacity: 0; transform: translateY(40px); transition: none; }
+        .reveal.visible { animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(40px); filter: blur(4px); }
+            to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+        }
+        .reveal-left { opacity: 0; transform: translateX(-60px); }
+        .reveal-left.visible { animation: revealLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes revealLeft {
+            from { opacity: 0; transform: translateX(-60px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .reveal-right { opacity: 0; transform: translateX(60px); }
+        .reveal-right.visible { animation: revealRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes revealRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .delay-1 { animation-delay: 0.1s !important; }
+        .delay-2 { animation-delay: 0.2s !important; }
+        .delay-3 { animation-delay: 0.35s !important; }
+        .delay-4 { animation-delay: 0.5s !important; }
+
+        /* ─── HERO ANIMAÇÃO ENTRADA ─── */
+        .hero-badge   { opacity: 0; animation: heroIn 0.7s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero-titulo  { opacity: 0; animation: heroIn 0.9s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero-sub     { opacity: 0; animation: heroIn 0.8s 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero-btns    { opacity: 0; animation: heroIn 0.8s 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+            to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+        }
+
+        /* ─── PARALLAX HERO IMG ─── */
+        .hero-img { transform: scale(1.1); }
+
+        /* ─── PULSE VERMELHO ─── */
+        @keyframes pulsered {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,0,0,0.3); }
+            50%       { box-shadow: 0 0 0 16px rgba(255,0,0,0); }
+        }
+        .pulse-red { animation: pulsered 2.5s infinite; }
+
+        /* ─── GLITCH TITLE ─── */
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            font: inherit; color: inherit;
+        }
+        .glitch::before {
+            animation: glitch1 4s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-2px);
+            color: #ff0000;
+            opacity: 0.7;
+        }
+        .glitch::after {
+            animation: glitch2 4s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(2px);
+            color: #fff;
+            opacity: 0.5;
+        }
+        @keyframes glitch1 {
+            0%, 85%, 100% { transform: translate(0); opacity: 0; }
+            87% { transform: translate(-3px, 1px); opacity: 0.7; }
+            89% { transform: translate(2px, -1px); opacity: 0.7; }
+            91% { transform: translate(0); opacity: 0; }
+        }
+        @keyframes glitch2 {
+            0%, 85%, 100% { transform: translate(0); opacity: 0; }
+            88% { transform: translate(3px, 1px); opacity: 0.5; }
+            90% { transform: translate(-2px, -1px); opacity: 0.5; }
+            92% { transform: translate(0); opacity: 0; }
+        }
+
+        /* ─── LINHA DECORATIVA ─── */
+        .line-grow { width: 0; height: 2px; background: #ff0000; transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .line-grow.visible { width: 60px; }
+
+        /* ─── CARD HOVER ─── */
+        .card-hover { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(255,0,0,0.12); }
+
+        /* ─── NAV LINK UNDERLINE ─── */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: #ff0000;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* ─── MOBILE MENU ─── */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* ─── GALERIA OVERLAY ─── */
+        .gallery-item .overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .gallery-item:hover .overlay { opacity: 1; }
+
+        /* ─── ESTATÍSTICAS COUNTER ─── */
+        .stat-number { font-variant-numeric: tabular-nums; }
+
+        /* ─── SEÇÃO MATRICULA GRADIENTE ─── */
+        .cta-gradient {
+            background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,0,0,0.15) 0%, transparent 70%);
+        }
+
+        /* ─── NÚMEROS ANIMADOS ─── */
+        @keyframes countup { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .stat-anim { animation: countup 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+        /* Esconde cursor em mobile */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+    </style>
 </head>
 <body class="bg-black font-texto overflow-x-hidden">
 
-    <header class="w-full h-20 fixed backdrop-blur-md bg-black/70 z-50 top-0 left-0 border-b border-white/10 flex items-center">
-        <nav class="w-full flex items-center justify-between px-6 md:px-12">
+    <!-- CURSOR -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+    <header class="w-full h-16 md:h-20 fixed backdrop-blur-lg bg-black/60 z-50 top-0 left-0 border-b border-white/10 flex items-center" id="header">
+        <nav class="w-full flex items-center justify-between px-4 md:px-12">
             
             <div class="flex-1">
-                <h1 class="text-2xl md:text-3xl font-black italic text-[#ff0000] font-titulo tracking-tighter">
-                    Valentini<span class="text-white not-italic font-bold text-lg md:text-xl ml-1">ACADEMIA</span>
-                </h1>
+                <a href="#" class="inline-block">
+                    <h1 class="text-xl md:text-3xl font-black italic text-[#ff0000] font-titulo tracking-tighter leading-none">
+                        Valentini<span class="text-white not-italic font-bold text-sm md:text-xl ml-1">ACADEMIA</span>
+                    </h1>
+                </a>
             </div>
 
-            <ul class="hidden lg:flex text-white/80 text-sm font-bold gap-10">
-                <li class="hover:text-[#ff0000] transition-colors"><a href="#planos">PLANOS</a></li>
-                <li class="hover:text-[#ff0000] transition-colors"><a href="#academia">ACADEMIA</a></li>
-                <li class="hover:text-[#ff0000] transition-colors"><a href="#galeria">GALERIA</a></li>
-                <li class="hover:text-[#ff0000] transition-colors"><a href="#depoimento">DEPOIMENTOS</a></li>
+            <!-- NAV DESKTOP -->
+            <ul class="hidden lg:flex text-white/80 text-xs font-bold gap-10">
+                <li><a href="#planos" class="nav-link hover:text-[#ff0000] transition-colors">PLANOS</a></li>
+                <li><a href="#academia" class="nav-link hover:text-[#ff0000] transition-colors">ACADEMIA</a></li>
+                <li><a href="#galeria" class="nav-link hover:text-[#ff0000] transition-colors">GALERIA</a></li>
+                <li><a href="#depoimento" class="nav-link hover:text-[#ff0000] transition-colors">DEPOIMENTOS</a></li>
             </ul>
 
-            <div class="flex-1 flex justify-end">
-                <a href="#matricula" class="bg-[#ff0000] px-6 md:px-8 py-2 text-white text-xs md:text-sm font-bold rounded-full hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
+            <div class="flex-1 flex justify-end items-center gap-3">
+                <a href="#matricula" class="hidden sm:inline-block bg-[#ff0000] pulse-red px-5 md:px-8 py-2 text-white text-xs font-bold rounded-full hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/30">
                     Matricule-se
                 </a>
+                <!-- HAMBURGER -->
+                <button class="lg:hidden flex flex-col gap-1.5 p-2 z-50 relative" id="menuBtn" aria-label="Menu">
+                    <span class="w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
+                    <span class="w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
+                    <span class="w-4 h-0.5 bg-white transition-all duration-300 self-end" id="bar3"></span>
+                </button>
             </div>
         </nav>
     </header>
 
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu fixed inset-0 z-40 bg-black/97 backdrop-blur-xl flex flex-col items-center justify-center gap-8" id="mobileMenu">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff0000] to-transparent"></div>
+        <ul class="flex flex-col items-center gap-8 text-white text-3xl font-titulo font-bold">
+            <li><a href="#planos" class="hover:text-[#ff0000] transition-colors mobile-nav-link">PLANOS</a></li>
+            <li><a href="#academia" class="hover:text-[#ff0000] transition-colors mobile-nav-link">ACADEMIA</a></li>
+            <li><a href="#galeria" class="hover:text-[#ff0000] transition-colors mobile-nav-link">GALERIA</a></li>
+            <li><a href="#depoimento" class="hover:text-[#ff0000] transition-colors mobile-nav-link">DEPOIMENTOS</a></li>
+        </ul>
+        <a href="#matricula" class="mt-4 bg-[#ff0000] px-12 py-4 text-white font-bold rounded-full text-sm mobile-nav-link">
+            MATRICULE-SE AGORA
+        </a>
+    </div>
+
+    <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
     <section class="relative h-screen w-full flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
-                 class="w-full h-full object-cover grayscale" alt="Gym Background">
-            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 md:via-black/40 to-transparent"></div>
+                 class="w-full h-full object-cover grayscale hero-img" alt="Gym Background" id="heroImg">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
         </div>
 
-        <div class="relative z-10 px-6 md:px-12 max-w-4xl flex flex-col space-y-6 md:left-24 lg:left-72">
+        <!-- LINHAS DECORATIVAS -->
+        <div class="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent hidden lg:block"></div>
+        <div class="absolute bottom-16 left-0 right-0 flex justify-center z-10">
+            <div class="flex flex-col items-center gap-2 opacity-40">
+                <span class="text-white text-[10px] font-bold tracking-[0.3em] uppercase">Scroll</span>
+                <div class="w-px h-12 bg-gradient-to-b from-white to-transparent animate-pulse"></div>
+            </div>
+        </div>
 
-            <div class="inline-block w-fit border items-center border-[#ff0000]/40 bg-[#ff0000]/10 px-4 py-1 shadow-lg shadow-red-900/20 mb-6 rounded-xl">
-                <p class="text-[#ff0000] font-bold tracking-widest text-[10px] md:text-xs uppercase">O Novo Padrão de Bem-estar</p>
+        <div class="relative z-10 px-6 md:px-12 max-w-5xl w-full mt-16">
+            <div class="hero-badge inline-block border border-[#ff0000]/40 bg-[#ff0000]/10 px-4 py-1.5 mb-6 rounded-full">
+                <p class="text-[#ff0000] font-bold tracking-widest text-[10px] uppercase">O Novo Padrão de Bem-estar</p>
             </div>
 
-            <h2 class="text-white text-6xl md:text-8xl lg:text-9xl font-titulo font-black uppercase leading-none italic">
-                Supere seus <br> <span class="text-[#ff0000]">Limites</span>
+            <h2 class="hero-titulo text-white text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-titulo font-black uppercase leading-none italic glitch" data-text="Supere seus">
+                Supere seus <br><span class="text-[#ff0000]">Limites</span>
             </h2>
 
-            <p class="text-white/60 text-lg md:text-xl font-medium max-w-lg">Mais que uma academia, um ponto de encontro para quem busca qualidade de vida. Treine com o apoio de quem conhece você pelo nome.</p>
+            <p class="hero-sub text-white/60 text-base md:text-xl font-medium max-w-lg mt-6">
+                Mais que uma academia, um ponto de encontro para quem busca qualidade de vida. Treine com o apoio de quem conhece você pelo nome.
+            </p>
 
-            <div class="flex flex-col sm:flex-row pt-4 gap-4 md:gap-10">
-                <a href="#começar" class="bg-[#ff0000] px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
+            <div class="hero-btns flex flex-col sm:flex-row pt-6 gap-4">
+                <a href="#matricula" class="bg-[#ff0000] px-8 py-4 text-center text-white text-xs font-bold rounded-lg hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/30 pulse-red">
                     COMEÇAR AGORA
                 </a>
-
-                <a href="#planos" class="px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg backdrop-blur border border-white/10 hover:bg-white/5 transition-all shadow-lg shadow-red-600/20">
-                    PLANOS
+                <a href="#planos" class="px-8 py-4 text-center text-white text-xs font-bold rounded-lg backdrop-blur border border-white/15 hover:bg-white/8 hover:border-white/30 transition-all">
+                    VER PLANOS
                 </a>
             </div>
-        </div>
+
     </section>
     
-    <section class="py-20 md:py-40 px-6 max-w-7xl mx-auto bg-black" id="academia">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <!-- ═══════════════════════════ SOBRE ═══════════════════════════ -->
+    <section class="py-20 md:py-36 px-6 max-w-7xl mx-auto" id="academia">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <div>
-                <p class="text-[#ff0000] text-sm md:text-lg font-black block tracking-[0.4em] mb-4">SOBRE NÓS</p>
-                <h3 class="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-tight md:leading-none">Mais que uma academia, <br class="hidden md:block"> o seu lugar para treinar.</h3>
+                <div class="reveal flex items-center gap-3 mb-4">
+                    <div class="line-grow"></div>
+                    <p class="text-[#ff0000] text-xs font-black tracking-[0.4em] uppercase">Sobre Nós</p>
+                </div>
+                <h3 class="reveal delay-1 text-4xl md:text-5xl lg:text-6xl font-black text-white italic tracking-tighter leading-none">
+                    Mais que uma academia,<br class="hidden md:block"> o seu lugar<br> para treinar.
+                </h3>
 
-                <p class="text-white/50 text-base md:text-lg leading-relaxed mt-8 mb-8">A Valentini nasceu para ser a extensão da sua casa. Esqueça a correria: aqui você encontra um ambiente amigo, professores que te conhecem pelo nome e tudo o que precisa para cuidar da sua saúde no seu tempo.</p>
+                <p class="reveal delay-2 text-white/50 text-base md:text-lg leading-relaxed mt-6 mb-8">
+                    A Valentini nasceu para ser a extensão da sua casa. Esqueça a correria: aqui você encontra um ambiente amigo, professores que te conhecem pelo nome e tudo o que precisa para cuidar da sua saúde no seu tempo.
+                </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     
-                    <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 5.3 5.3"/><path d="M6.364 13.435a2 2 0 1 1-2.829-2.828l1.768-1.768a2 2 0 1 1-2.828-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.768a2 2 0 1 1 2.828 2.828z"/></svg>
+                    <div class="reveal delay-2 card-hover p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-red-500/20 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 5.3 5.3"/><path d="M6.364 13.435a2 2 0 1 1-2.829-2.828l1.768-1.768a2 2 0 1 1-2.828-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.768a2 2 0 1 1 2.828 2.828z"/></svg>
+                        </div>
                         <div>
-                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Equipamentos</div>
-                            <div class="text-lg font-bold italic text-white">Modernos</div> 
+                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30 mb-0.5">Equipamentos</div>
+                            <div class="text-base font-bold italic text-white">Modernos</div> 
                         </div>
                     </div>
 
-                    <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <div class="reveal delay-3 card-hover p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-red-500/20 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
                         <div>
-                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Horário</div>
-                            <div class="text-lg font-bold italic text-white">Seg a Sáb</div> 
+                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30 mb-0.5">Horário</div>
+                            <div class="text-base font-bold italic text-white">Seg a Sáb</div> 
                         </div>
                     </div>
 
-                    <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <div class="reveal delay-3 card-hover p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-red-500/20 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
                         <div>
-                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Apoio</div>
-                            <div class="text-lg font-bold italic text-white">Professores Amigos</div> 
+                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30 mb-0.5">Apoio</div>
+                            <div class="text-base font-bold italic text-white">Professores Amigos</div> 
                         </div>
                     </div>
 
-                    <div class="p-6 bg-white/5 rounded-xl border border-white/5 flex items-start gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div class="reveal delay-4 card-hover p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-red-500/20 flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
                         <div>
-                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30">Localização</div>
-                            <div class="text-lg font-bold italic text-white">Aqui no Bairro</div>
+                            <div class="text-[10px] uppercase font-black tracking-widest text-white/30 mb-0.5">Localização</div>
+                            <div class="text-base font-bold italic text-white">Aqui no Bairro</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="hidden lg:block">
-                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&q=80&w=800" class="rounded-3xl grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl shadow-red-600/10" alt="Interior">
+
+            <div class="reveal-right hidden lg:block">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&q=80&w=800" 
+                         class="rounded-3xl grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl shadow-red-600/10 w-full" alt="Interior">
+                    <div class="absolute -top-6 -right-6 w-16 h-16 bg-[#ff0000] rounded-2xl flex items-center justify-center shadow-xl shadow-red-600/30">
+                        <svg width="28" height="28" fill="white" viewBox="0 0 24 24"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="planos" class="py-20 bg-black/95">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- ═══════════════════════════ PLANOS ═══════════════════════════ -->
+    <section id="planos" class="py-20 md:py-32 bg-black/95 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,0,0,0.07),transparent)]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative">
             
-            <div id="texto-planos" class="text-center mb-16">
-                <span class="text-[#ff0000] font-bold tracking-widest text-xs uppercase">Planos</span>
-                <h2 class="text-white text-4xl md:text-5xl font-titulo font-black uppercase italic mt-2">
+            <div class="text-center mb-16">
+                <div class="reveal flex items-center justify-center gap-3 mb-2">
+                    <div class="line-grow"></div>
+                    <span class="text-[#ff0000] font-bold tracking-widest text-xs uppercase">Planos</span>
+                    <div class="line-grow"></div>
+                </div>
+                <h2 class="reveal delay-1 text-white text-4xl md:text-6xl font-titulo font-black uppercase italic mt-2">
                     Escolha o ideal para <span class="text-[#ff0000]">você</span>
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center relative">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
                 
-                <div id="card-esquerda" class="p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 transition-all flex flex-col h-fit z-0">
+                <div class="reveal reveal-left card-hover p-7 md:p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 flex flex-col">
                     <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Essencial</h3>
-                    <div class="flex items-baseline gap-1 my-6">
+                    <div class="flex items-baseline gap-1 my-5">
                         <span class="text-white/50 text-sm">R$</span>
                         <span class="text-white text-5xl font-black font-titulo">119</span>
                         <span class="text-white/50 text-sm">/mês</span>
                     </div>
-                    <ul class="space-y-4 mb-8 text-white/70 text-sm flex-1">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Musculação Completa</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Horário Livre</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Treino Funcional</li>
+                    <ul class="space-y-3 mb-8 text-white/70 text-sm flex-1">
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Musculação Completa</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Horário Livre</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Treino Funcional</li>
                     </ul>
-                    <a href="#" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all">Começar Agora</a>
+                    <a href="#matricula" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all text-sm">Começar Agora</a>
                 </div>
 
-                <div id="card-principal" class="p-8 bg-black border-2 border-[#ff0000] rounded-3xl shadow-2xl shadow-[#ff0000]/20 flex flex-col relative md:scale-105 z-10 order-first lg:order-none">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ff0000] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase">Mais Procurado</div>
+                <div class="reveal card-hover p-7 md:p-8 bg-black border-2 border-[#ff0000] rounded-3xl shadow-2xl shadow-[#ff0000]/20 flex flex-col relative md:scale-105 z-10 order-first md:order-none">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ff0000] text-white text-[9px] font-bold px-5 py-1.5 rounded-full uppercase tracking-widest whitespace-nowrap">⚡ Mais Procurado</div>
                     <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Valentine Plus</h3>
-                    <div class="flex items-baseline gap-1 my-6 text-[#ff0000]">
+                    <div class="flex items-baseline gap-1 my-5">
                         <span class="text-white/50 text-sm">R$</span>
-                        <span class="text-white text-6xl font-black font-titulo">159</span>
+                        <span class="text-[#ff0000] text-6xl font-black font-titulo">159</span>
                         <span class="text-white/50 text-sm">/mês</span>
                     </div>
-                    <ul class="space-y-4 mb-8 text-white/90 text-sm flex-1">
-                        <li class="flex items-center gap-2 font-bold"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Tudo do Essencial</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Avaliação Física Mensal</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Aulas de Boxe e Dança</li>
+                    <ul class="space-y-3 mb-8 text-white/90 text-sm flex-1">
+                        <li class="flex items-center gap-2.5 font-bold"><span class="w-4 h-4 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Tudo do Essencial</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Avaliação Física Mensal</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Aulas de Boxe e Dança</li>
                     </ul>
-                    <a href="#" class="w-full py-4 text-center bg-[#ff0000] text-white rounded-xl font-bold hover:bg-red-700 transition-all">Matricule-se Já</a>
+                    <a href="#matricula" class="w-full py-4 text-center bg-[#ff0000] text-white rounded-xl font-bold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/30">Matricule-se Já</a>
                 </div>
 
-                <div id="card-direita" class="p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 transition-all flex flex-col h-fit z-0">
+                <div class="reveal reveal-right card-hover p-7 md:p-8 bg-white/5 rounded-3xl border border-white/10 hover:border-[#ff0000]/30 flex flex-col">
                     <h3 class="text-white text-xl font-bold uppercase italic font-titulo">Familiar</h3>
-                    <div class="flex items-baseline gap-1 my-6">
+                    <div class="flex items-baseline gap-1 my-5">
                         <span class="text-white/50 text-sm">R$</span>
                         <span class="text-white text-5xl font-black font-titulo">219</span>
                         <span class="text-white/50 text-sm">/mês</span>
                     </div>
-                    <ul class="space-y-4 mb-8 text-white/70 text-sm flex-1">
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Plano para 2 Pessoas</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Todos os Benefícios</li>
-                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg> Consultoria de Treino</li>
+                    <ul class="space-y-3 mb-8 text-white/70 text-sm flex-1">
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Plano para 2 Pessoas</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Todos os Benefícios</li>
+                        <li class="flex items-center gap-2.5"><span class="w-4 h-4 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0"><svg class="w-2.5 h-2.5 text-[#ff0000]" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 111.414 1.414z"/></svg></span> Consultoria de Treino</li>
                     </ul>
-                    <a href="#" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all">Ver Detalhes</a>
+                    <a href="#matricula" class="w-full py-3 text-center border border-white/20 text-white rounded-xl font-bold hover:bg-white/10 transition-all text-sm">Ver Detalhes</a>
                 </div>
 
             </div>
         </div>
     </section>
 
+    <!-- ═══════════════════════════ GALERIA ═══════════════════════════ -->
     <section class="py-20 md:py-32 bg-black w-full" id="galeria">
-
-        <div class="px-6 mb-16 w-full text-center">
-            <p class="text-red-600 text-sm md:text-lg font-black tracking-[0.4em] mb-4">ATMOSFERA</p>
-            <h3 class="text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none">
+        <div class="px-6 mb-12 text-center">
+            <div class="reveal flex items-center justify-center gap-3 mb-2">
+                <div class="line-grow"></div>
+                <p class="text-red-600 text-xs font-black tracking-[0.4em] uppercase">Atmosfera</p>
+                <div class="line-grow"></div>
+            </div>
+            <h3 class="reveal delay-1 text-4xl md:text-6xl font-black text-white italic tracking-tighter leading-none mt-2">
                 Ambiente relaxante
             </h3>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full px-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-4">
 
-            <div class="overflow-hidden group relative h-[400px] md:h-[600px]">
-                <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&q=80&w=1200"
-                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 rounded-lg group-hover:scale-110 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span class="text-white text-xs font-bold uppercase tracking-widest">Nossa Área</span>
+            <div class="gallery-item overflow-hidden group relative h-52 sm:h-72 md:h-[500px] rounded-xl">
+                <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&q=80&w=800"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                <div class="overlay absolute inset-0 flex items-end p-4 md:p-6">
+                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Nossa Área</span>
                 </div>
             </div>
 
-            <div class="overflow-hidden group relative h-[400px] md:h-[600px]">
-                <img src="https://images.unsplash.com/photo-1574673139081-34460f7e49f6?auto=format&fit=crop&q=80&w=1200"
-                    class="w-full h-full object-cover grayscale rounded-xl group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span class="text-white text-xs font-bold uppercase tracking-widest">Gallery</span>
+            <div class="gallery-item overflow-hidden group relative h-52 sm:h-72 md:h-[500px] rounded-xl">
+                <img src="https://images.unsplash.com/photo-1574673139081-34460f7e49f6?auto=format&fit=crop&q=80&w=800"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                <div class="overlay absolute inset-0 flex items-end p-4 md:p-6">
+                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Espaço</span>
                 </div>
             </div>
 
-            <div class="overflow-hidden group relative h-[400px] md:h-[600px]">
-                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&q=80&w=1200"
-                    class="w-full h-full object-cover grayscale rounded-xl group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span class="text-white text-xs font-bold uppercase tracking-widest">Funcional</span>
+            <div class="gallery-item overflow-hidden group relative h-52 sm:h-72 md:h-[500px] rounded-xl">
+                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&q=80&w=800"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                <div class="overlay absolute inset-0 flex items-end p-4 md:p-6">
+                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Funcional</span>
                 </div>
             </div>
 
-            <div class="overflow-hidden group relative h-[400px] md:h-[600px]">
-                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=1200"
-                    class="w-full h-full object-cover grayscale rounded-lg group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span class="text-white text-xs font-bold uppercase tracking-widest">Bem-estar</span>
+            <div class="gallery-item overflow-hidden group relative h-52 sm:h-72 md:h-[500px] rounded-xl">
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=800"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                <div class="overlay absolute inset-0 flex items-end p-4 md:p-6">
+                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Bem-estar</span>
                 </div>
             </div>
 
         </div>
     </section>
 
+    <!-- ═══════════════════════════ DEPOIMENTOS ═══════════════════════════ -->
     <section id="depoimento" class="py-20 md:py-32 bg-black/95 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-[#ff0000]/5 blur-[120px] -z-10"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-[#ff0000]/5 blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-[#ff0000]/3 blur-[100px] pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-[#ff0000] font-bold tracking-[0.4em] text-xs uppercase">Comunidade</span>
-                <h2 class="text-white text-4xl md:text-6xl font-titulo font-black uppercase italic mt-2">
+                <div class="reveal flex items-center justify-center gap-3 mb-2">
+                    <div class="line-grow"></div>
+                    <span class="text-[#ff0000] font-bold tracking-[0.4em] text-xs uppercase">Comunidade</span>
+                    <div class="line-grow"></div>
+                </div>
+                <h2 class="reveal delay-1 text-white text-4xl md:text-6xl font-titulo font-black uppercase italic mt-2">
                     Relatos de quem <span class="text-[#ff0000]">evolui</span>
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
                 
-                <div class="p-8 bg-white/5 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-[#ff0000]/30 transition-all duration-500">
+                <div class="reveal reveal-left card-hover p-7 md:p-8 bg-white/5 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-[#ff0000]/30 transition-all duration-500">
                     <div>
-                        <div class="flex gap-1 mb-6 text-[#ff0000]">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <div class="flex gap-1 mb-5 text-[#ff0000]">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
-                        <p class="text-white/70 italic leading-relaxed mb-8">
+                        <p class="text-white/70 italic leading-relaxed mb-6 text-sm md:text-base">
                             "O ambiente é sensacional. Diferente de outras academias onde você é só mais um, na Valentini os professores realmente acompanham seu treino."
                         </p>
                     </div>
-                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#ff0000] to-red-900 flex items-center justify-center font-bold text-white">RM</div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-5">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-[#ff0000] to-red-900 flex items-center justify-center font-bold text-white text-sm flex-shrink-0">RM</div>
                         <div>
-                            <p class="text-white font-bold">Ricardo Menezes</p>
-                            <p class="text-[#ff0000] text-xs font-bold uppercase tracking-tighter">Aluno há 2 anos</p>
+                            <p class="text-white font-bold text-sm">Ricardo Menezes</p>
+                            <p class="text-[#ff0000] text-[10px] font-bold uppercase tracking-tighter">Aluno há 2 anos</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-8 bg-black border-2 border-[#ff0000] rounded-3xl shadow-2xl shadow-red-600/10 flex flex-col justify-between relative md:scale-105 z-10">
-                    <div class="absolute -top-4 left-10 bg-[#ff0000] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">Destaque</div>
+                <div class="reveal card-hover p-7 md:p-8 bg-black border-2 border-[#ff0000] rounded-3xl shadow-2xl shadow-red-600/10 flex flex-col justify-between relative md:scale-105 z-10">
+                    <div class="absolute -top-4 left-8 bg-[#ff0000] text-white text-[9px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">⭐ Destaque</div>
                     <div>
-                        <div class="flex gap-1 mb-6 text-[#ff0000]">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <div class="flex gap-1 mb-5 text-[#ff0000]">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
-                        <p class="text-white text-lg font-bold italic leading-relaxed mb-8">
+                        <p class="text-white text-base md:text-lg font-bold italic leading-relaxed mb-6">
                             "Mudei meu estilo de vida completamente. O plano Valentine Plus com as aulas de boxe me motivou a vir treinar todos os dias."
                         </p>
                     </div>
-                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center font-bold text-black italic">AS</div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-5">
+                        <div class="w-11 h-11 rounded-full bg-white flex items-center justify-center font-bold text-black italic text-sm flex-shrink-0">AS</div>
                         <div>
-                            <p class="text-white font-black">Ana Silva</p>
-                            <p class="text-[#ff0000] text-xs font-bold uppercase tracking-tighter">Atleta Amadora</p>
+                            <p class="text-white font-black text-sm">Ana Silva</p>
+                            <p class="text-[#ff0000] text-[10px] font-bold uppercase tracking-tighter">Atleta Amadora</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-8 bg-white/5 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-[#ff0000]/30 transition-all duration-500">
+                <div class="reveal reveal-right card-hover p-7 md:p-8 bg-white/5 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-[#ff0000]/30 transition-all duration-500">
                     <div>
-                        <div class="flex gap-1 mb-6 text-[#ff0000]">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <div class="flex gap-1 mb-5 text-[#ff0000]">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4 opacity-30" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
-                        <p class="text-white/70 italic leading-relaxed mb-8">
+                        <p class="text-white/70 italic leading-relaxed mb-6 text-sm md:text-base">
                             "Equipamentos de primeira e limpeza impecável. É difícil encontrar uma academia tão bem cuidada na região."
                         </p>
                     </div>
-                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
-                        <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-white italic">FB</div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-5">
+                        <div class="w-11 h-11 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-white text-sm flex-shrink-0">FB</div>
                         <div>
-                            <p class="text-white font-bold">Felipe Barbosa</p>
-                            <p class="text-[#ff0000] text-xs font-bold uppercase tracking-tighter">Aluno Unidade Bairro</p>
+                            <p class="text-white font-bold text-sm">Felipe Barbosa</p>
+                            <p class="text-[#ff0000] text-[10px] font-bold uppercase tracking-tighter">Aluno Unidade Bairro</p>
                         </div>
                     </div>
                 </div>
@@ -314,37 +561,154 @@
         </div>
     </section>
 
-    <footer class="py-12 bg-black border-t border-white/10 text-center">
-        <p class="text-white/30 text-sm">© 2024 Valentini ACADEMIA. Todos os direitos reservados.</p>
+    <!-- ═══════════════════════════ CTA MATRICULA ═══════════════════════════ -->
+    <section id="matricula" class="py-24 md:py-40 bg-black cta-gradient relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[100px]"></div>
+        </div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative">
+            <div class="reveal">
+                <p class="text-[#ff0000] text-xs font-black tracking-[0.4em] uppercase mb-4">Comece Hoje</p>
+                <h2 class="text-white text-4xl md:text-6xl font-titulo font-black uppercase italic leading-none mb-6">
+                    Pronto para <span class="text-[#ff0000]">transformar</span> sua vida?
+                </h2>
+                <p class="text-white/50 text-base md:text-lg max-w-xl mx-auto mb-10">
+                    Venha conhecer a Valentini pessoalmente. Sua primeira aula é por nossa conta.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://wa.me/55XXXXXXXXXX" class="bg-[#ff0000] pulse-red px-10 py-5 text-white font-bold rounded-xl hover:bg-red-700 hover:scale-105 transition-all shadow-2xl shadow-red-600/30 text-sm flex items-center justify-center gap-2">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Falar no WhatsApp
+                    </a>
+                    <a href="#planos" class="px-10 py-5 text-white font-bold rounded-xl border border-white/15 hover:bg-white/5 transition-all text-sm">
+                        Ver Planos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+    <footer class="py-10 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <h1 class="text-lg font-black italic text-[#ff0000] font-titulo tracking-tighter">
+                Valentini<span class="text-white not-italic font-bold text-sm ml-1">ACADEMIA</span>
+            </h1>
+            <p class="text-white/20 text-xs text-center">© 2024 Valentini Academia. Todos os direitos reservados.</p>
+            <div class="flex gap-6">
+                <a href="#planos" class="text-white/30 text-xs hover:text-white/60 transition-colors font-bold">Planos</a>
+                <a href="#academia" class="text-white/30 text-xs hover:text-white/60 transition-colors font-bold">Academia</a>
+                <a href="#galeria" class="text-white/30 text-xs hover:text-white/60 transition-colors font-bold">Galeria</a>
+            </div>
+        </div>
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+    // ─── CURSOR SUAVE ───
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#planos",
-                start: "top 85%",
-                end: "bottom 95%",
-                scrub: true,
-                markers: false
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+    });
+
+    function animateCursor() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        ring.style.left = ringX + 'px';
+        ring.style.top = ringY + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // ─── SCROLL SUAVE NOS LINKS ───
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            const offset = 80; // altura do header
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+            // Fecha menu mobile se estiver aberto
+            if (mobileMenu.classList.contains('open')) toggleMenu();
+        });
+    });
+
+    // ─── MENU MOBILE ───
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+    let menuOpen = false;
+
+    function toggleMenu() {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('open', menuOpen);
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        bar1.style.transform = menuOpen ? 'translateY(8px) rotate(45deg)' : '';
+        bar2.style.opacity = menuOpen ? '0' : '1';
+        bar3.style.transform = menuOpen ? 'translateY(-8px) rotate(-45deg) translateX(-8px)' : '';
+        bar3.style.width = menuOpen ? '24px' : '';
+    }
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // ─── HEADER SCROLL ───
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.style.background = window.scrollY > 50 
+            ? 'rgba(0,0,0,0.95)' 
+            : 'rgba(0,0,0,0.8)';
+    });
+
+    // ─── PARALLAX HERO ───
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y < window.innerHeight) {
+            heroImg.style.transform = `scale(1.1) translateY(${y * 0.3}px)`;
+        }
+    });
+
+    // ─── INTERSECTION OBSERVER ─── (reveal on scroll)
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .line-grow');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-        tl.fromTo("#texto-planos",
-            { y: 40, opacity: 0, scale: 0.9, filter: "blur(6px)" },
-            { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", ease: "power2.out" }
-        )
-        .fromTo("#card-direita",
-            { xPercent: window.innerWidth > 768 ? -120 : 0, y: window.innerWidth > 768 ? 0 : 50, opacity: 0 },
-            { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" }
-        )
-        .fromTo("#card-esquerda",
-            { xPercent: window.innerWidth > 768 ? 120 : 0, y: window.innerWidth > 768 ? 0 : 50, opacity: 0 },
-            { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" },
-            "<0.1"
-        );
+    revealEls.forEach(el => observer.observe(el));
+
+    // ─── GALERIA STAGGER ───
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const idx = Array.from(galleryItems).indexOf(el);
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px)';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, idx * 100);
+                galleryObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    galleryItems.forEach(el => galleryObserver.observe(el));
+
     </script>
-    
 </body>
 </html>
