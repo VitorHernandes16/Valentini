@@ -64,37 +64,42 @@
 
 <!-- HERO -->
 <section id="principal" class="relative min-h-screen w-full flex items-center overflow-hidden pt-20">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
-             class="w-full h-full object-cover grayscale" alt="Gym Background">
-        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 md:via-black/40 to-transparent"></div>
-    </div>
+ <div class="absolute inset-0 z-0">
+  <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
+       class="w-full h-full object-cover grayscale" alt="Gym Background">
+  <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 md:via-black/40 to-transparent"></div>
+ </div>
 
-    <div id="principal-conteudo" class="relative z-10 px-6 md:px-12 max-w-4xl ml-48 flex flex-col space-y-6">
+ <!-- RESPONSIVO DE VERDADE: centraliza no mobile, desloca no desktop -->
+ <div id="principal-conteudo" class="relative z-10 px-6 md:px-12 max-w-4xl w-full
+             flex flex-col space-y-6
+             items-center text-center
+             lg:items-start lg:text-left lg:ml-24 xl:ml-40 2xl:ml-56">
 
-        <div class="inline-block w-fit border border-[#ff0000]/40 bg-[#ff0000]/10 px-4 py-1 shadow-lg shadow-red-900/20 mb-6 rounded-xl">
-            <p class="text-[#ff0000] font-bold tracking-widest text-[10px] md:text-xs uppercase">O Novo Padrão de Bem-estar</p>
-        </div>
+  <div class="inline-block w-fit border border-[#ff0000]/40 bg-[#ff0000]/10 px-4 py-1 shadow-lg shadow-red-900/20 mb-2 rounded-xl">
+   <p class="text-[#ff0000] font-bold tracking-widest text-[10px] md:text-xs uppercase">O Novo Padrão de Bem-estar</p>
+  </div>
 
-        <h2 class="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-titulo font-black uppercase leading-none italic">
-            Supere seus <br> <span class="text-[#ff0000]">Limites</span>
-        </h2>
+  <h2 class="hero-title text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-titulo font-black uppercase italic">
+   Supere seus <br>
+   <span class="text-[#ff0000]">Limites</span>
+  </h2>
 
-        <p class="text-white/60 text-base sm:text-lg md:text-xl font-medium max-w-lg">
-            Mais que uma academia, um ponto de encontro para quem busca qualidade de vida.
-            Treine com o apoio de quem conhece você pelo nome.
-        </p>
+  <p class="text-white/60 text-base sm:text-lg md:text-xl font-medium max-w-lg">
+   Mais que uma academia, um ponto de encontro para quem busca qualidade de vida.
+   Treine com o apoio de quem conhece você pelo nome.
+  </p>
 
-        <div class="flex flex-col sm:flex-row pt-4 gap-4 md:gap-10">
-            <a href="#começar" class="bg-[#ff0000] px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
-                COMEÇAR AGORA
-            </a>
+  <div class="flex flex-col sm:flex-row pt-4 gap-4 md:gap-10 w-full sm:w-auto">
+   <a href="#começar" class="bg-[#ff0000] px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-600/20">
+    COMEÇAR AGORA
+   </a>
 
-            <a href="#planos" class="px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg backdrop-blur border border-white/10 hover:bg-white/5 transition-all shadow-lg shadow-red-600/20">
-                PLANOS
-            </a>
-        </div>
-    </div>
+   <a href="#planos" class="px-8 md:px-12 py-4 md:py-6 text-center text-white text-sm font-bold rounded-lg backdrop-blur border border-white/10 hover:bg-white/5 transition-all shadow-lg shadow-red-600/20">
+    PLANOS
+   </a>
+  </div>
+ </div>
 </section>
 
 <!-- ACADEMIA -->
@@ -316,54 +321,96 @@
 </footer>
 
 <script>
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Scroll suave menu
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const id = link.getAttribute('href');
-            const el = document.querySelector(id);
-            const y = el.getBoundingClientRect().top + window.pageYOffset - 90;
-            gsap.to(window, { duration: 1, scrollTo: { y: y }, ease: "power2.inOut" });
-        });
-    });
+ // Scroll suave menu
+ document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+   e.preventDefault();
+   const id = link.getAttribute('href');
+   const el = document.querySelector(id);
+   const y = el.getBoundingClientRect().top + window.pageYOffset - 90;
+   gsap.to(window, { duration: 1, scrollTo: { y: y }, ease: "power2.inOut" });
+  });
+ });
 
-    // HERO
-    gsap.timeline()
-    .fromTo("#principal img", { scale: 1.3, filter: "blur(8px)" }, { scale: 1, filter: "blur(0px)", duration: 1.6, ease: "power3.out" })
-    .fromTo("#principal-conteudo > *", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }, "-=1");
+ // HERO
+ gsap.timeline()
+ .fromTo("#principal img",
+  { scale: 1.3, filter: "blur(8px)" },
+  { scale: 1, filter: "blur(0px)", duration: 1.6, ease: "power3.out" }
+ )
+ .fromTo("#principal-conteudo > *",
+  { y: 80, opacity: 0 },
+  { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" },
+  "-=1"
+ );
 
-    // ACADEMIA
-    gsap.timeline({
-        scrollTrigger: { trigger: "#academia", start: "top 75%", end: "bottom 95%", scrub: true }
-    })
-    .fromTo("#academia-texto", { x: -120, opacity: 0, filter: "blur(6px)" }, { x: 0, opacity: 1, filter: "blur(0px)" })
-    .fromTo("#academia-img", { x: 120, opacity: 0, scale: 0.95 }, { x: 0, opacity: 1, scale: 1 }, "<");
+ // =============================
+ // PLANOS (IGUAL AO SEU MODELO)
+ // =============================
+ const tlPlanos = gsap.timeline({
+  scrollTrigger: {
+   trigger: "#planos",
+   start: "top 85%",
+   end: "bottom 95%",
+   scrub: true,
+   markers: false
+  }
+ });
 
-    // PLANOS
-    gsap.timeline({
-        scrollTrigger: { trigger: "#planos", start: "top 85%", end: "bottom 95%", scrub: true }
-    })
-    .fromTo("#texto-planos", { y: 40, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1 })
-    .fromTo("#card-esquerda", { xPercent: -100, opacity: 0 }, { xPercent: 0, opacity: 1 })
-    .fromTo("#card-direita", { xPercent: 100, opacity: 0 }, { xPercent: 0, opacity: 1 }, "<");
+ tlPlanos
+ .fromTo("#texto-planos",
+  { y: 40, opacity: 0, scale: 0.9, filter: "blur(6px)" },
+  { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", ease: "power2.out" }
+ )
+ .fromTo("#card-direita",
+  { xPercent: window.innerWidth > 768 ? -120 : 0,
+    y: window.innerWidth > 768 ? 0 : 50,
+    opacity: 0 },
+  { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" }
+ )
+ .fromTo("#card-esquerda",
+  { xPercent: window.innerWidth > 768 ? 120 : 0,
+    y: window.innerWidth > 768 ? 0 : 50,
+    opacity: 0 },
+  { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" },
+  "<0.1"
+ );
 
-    // GALERIA
-    gsap.timeline({
-        scrollTrigger: { trigger: "#galeria", start: "top 80%", end: "bottom 95%", scrub: true }
-    })
-    .fromTo("#texto-ambiente", { y: 40, opacity: 0 }, { y: 0, opacity: 1 })
-    .fromTo("#card-ambiente-1 > div", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, stagger: 0.1 });
+ // =============================
+ // DEPOIMENTOS (MESMO PADRÃO)
+ // =============================
+ const tlDep = gsap.timeline({
+  scrollTrigger: {
+   trigger: "#depoimento",
+   start: "top 85%",
+   end: "bottom 95%",
+   scrub: true,
+   markers: false
+     }
+ });
 
-    // DEPOIMENTOS
-    gsap.timeline({
-        scrollTrigger: { trigger: "#depoimento", start: "top 80%", end: "bottom 95%", scrub: true }
-    })
-    .fromTo("#texto-depoimentos", { y: 40, opacity: 0 }, { y: 0, opacity: 1 })
-    .fromTo("#card-depoimento-esquerda", { xPercent: -100, opacity: 0 }, { xPercent: 0, opacity: 1 })
-    .fromTo("#card-depoimento-direita", { xPercent: 100, opacity: 0 }, { xPercent: 0, opacity: 1 }, "<");
+ tlDep
+ .fromTo("#texto-depoimentos",
+  { y: 40, opacity: 0, scale: 0.9, filter: "blur(6px)" },
+  { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", ease: "power2.out" }
+ )
+ .fromTo("#card-depoimento-direita",
+  { xPercent: window.innerWidth > 768 ? -120 : 0,
+    y: window.innerWidth > 768 ? 0 : 50,
+    opacity: 0 },
+  { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" }
+ )
+ .fromTo("#card-depoimento-esquerda",
+  { xPercent: window.innerWidth > 768 ? 120 : 0,
+    y: window.innerWidth > 768 ? 0 : 50,
+    opacity: 0 },
+  { xPercent: 0, y: 0, opacity: 1, ease: "power3.out" },
+  "<0.1"
+ );
 </script>
+
 
 </body>
 </html>
